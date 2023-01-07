@@ -19,7 +19,7 @@ const MeetupList = (props) => {
            image={meetup.image} 
            title={meetup.title}
            address={meetup.address}
-           decription={meetup.decription}
+           description={meetup.description}
            />))}
         </ul>
     );
