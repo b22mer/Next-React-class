@@ -11,9 +11,9 @@ const MainNavigation = () => {
         <header className={classes.header}>
             <div className={classes.logo}>React Meetup</div>
             <ul>
-            <li><Link to='/'>AllMeetups</Link></li>
-            <li><Link to='/new-meet'>NewMeetup</Link></li>
-            <li><Link to='/favorites'>Favorites</Link></li>
+            <li><Link to='/'>All Meetups</Link></li>
+            <li><Link to='/new-meet'>Add New Meetup</Link></li>
+            <li><Link to='/favorites'>My Favorites</Link></li>
             </ul>
         </header>
     );

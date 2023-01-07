@@ -6,11 +6,13 @@
 // -----------------------------------------------------------------------------------------
 
 import React from 'react';
+import NewMeeupForm from '../components/meetups/NewMeeupForm';
 
 const NewMeetup = () => {
     return (
         <div>
-            NewMeetup
+            <h1>Add New Meetup</h1>
+            <NewMeeupForm/>
         </div>
     );
 };
