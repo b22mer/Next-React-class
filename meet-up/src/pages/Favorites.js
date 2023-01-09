@@ -11,14 +11,29 @@
 //   1. Redux (상태관리 패키지) 
 //   2. Context (내장 상태관리 장치)
 // -----------------------------------------------------------------------------------------
+//   - 즐겨찾기를 구현했지만 새로고침을 하게되면 사라지는것을 볼수이싿. 상태 및 상수로만 작업을 했고 영구적으
+//     으로 저장된건 아니기 때문이다. 이를 영구적으로 저장하려면 favoriteContextprovider에서 로컬 스토리지등의
+//     브라우저 스토리지를 사용하거나 서버에 저장을 해야한다. 
+// -----------------------------------------------------------------------------------------
 
-import React from 'react';
+import React, { useContext } from 'react';
+import MeetupList from '../components/meetups/MeetupList';
+import FavoritesContext from '../store/favorites-context';
 
 const Favorites = () => {
+    const favoriteCtx=useContext(FavoritesContext);
+    let content;
+    if(favoriteCtx.totalFavorites===0){
+        content= <p>아직 즐겨찾기에 추가한 내용이 없습니다.</p>
+    }else{
+        content=<MeetupList meetups={favoriteCtx.favorites}/>
+    }
     return (
-        <div>
-            Favorites
-        </div>
+        <section>
+            <h1>My favorites</h1>
+            {/* <MeetupList meetups={favoriteCtx.favorites}/> */}
+            {content}
+        </section>
     );
 };
 

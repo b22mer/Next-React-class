@@ -12,33 +12,38 @@
 //   하고있는 모든 컴포넌트들이 업데이트 된다.
 //  -value의 프로퍼티를 이용해 최신값을 전달하는것. 즐겨찾기에 추가된 모임약속 배열을 여기서 관리한다.
 // -----------------------------------------------------------------------------------------
+//  - 이 파일의 외부에서 두개의 객체 모두와 상호작용을 하고자 하여 두가지를 모두 export한것.
+//  - 
+// -----------------------------------------------------------------------------------------
 import { createContext } from "react";
 import AllMeetups from './../pages/AllMeetups';
 import { useState } from 'react';
 
+
+//여기 있는 함수들은 하는 역할이 없어 소용없지만 자동완성을 위해 초기 콘텍스트에 내용을 적는것.
 const FavoritesContext=createContext({
    favorites: [],
    totalFavorites:0,
+   addFavorite: (favoriteMeetup)=>{},
+   removeFavorite:(meetupId)=>{},
+   itemIsFavorite: (meetupId)=>{},
 });
 
-const FavoritesContextProvider= (props)=>{
+
+export const FavoritesContextProvider= (props)=>{
     const [userFavorites,setUserFavorites]=useState([]);
     const addFavoritesHandler= (favoriteMeetup)=>{
         setUserFavorites((prevUserFavorites)=>{
             return prevUserFavorites.concat(favoriteMeetup)
             // 이렇게 함수 형태로 적어주면 상태 업데이트 함수로 전달한 함수가 올바른 순서에 실행이됨
             // 즉 바로 최신상태로 가능 
-        });
-      
+        }); 
     }
-
     const removeFavoritesHandler= (meetupId)=>{
         setUserFavorites(prevUserFavorites=>{
-            return prevUserFavorites.filter(meetup => meetup.od!== meetupId);
-
+            return prevUserFavorites.filter(meetup => meetup.id!== meetupId);
         })
     }
-
     const itemIsFavoritesHandler= (meetupId)=>{
  
         return userFavorites.some(meetup => meetup.id === meetupId)
@@ -48,8 +53,13 @@ const FavoritesContextProvider= (props)=>{
     const context= {
         favorites: userFavorites,
         totalFavorites: userFavorites.length,
+        addFavorite: addFavoritesHandler,
+        removeFavorite: removeFavoritesHandler,
+        itemIsFavorite: itemIsFavoritesHandler,
     };
     return <FavoritesContext.Provider value={context}>
         {props.children}
     </FavoritesContext.Provider>
 }
+
+export default FavoritesContext;
