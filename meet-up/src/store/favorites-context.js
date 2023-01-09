@@ -23,6 +23,28 @@ const FavoritesContext=createContext({
 
 const FavoritesContextProvider= (props)=>{
     const [userFavorites,setUserFavorites]=useState([]);
+    const addFavoritesHandler= (favoriteMeetup)=>{
+        setUserFavorites((prevUserFavorites)=>{
+            return prevUserFavorites.concat(favoriteMeetup)
+            // 이렇게 함수 형태로 적어주면 상태 업데이트 함수로 전달한 함수가 올바른 순서에 실행이됨
+            // 즉 바로 최신상태로 가능 
+        });
+      
+    }
+
+    const removeFavoritesHandler= (meetupId)=>{
+        setUserFavorites(prevUserFavorites=>{
+            return prevUserFavorites.filter(meetup => meetup.od!== meetupId);
+
+        })
+    }
+
+    const itemIsFavoritesHandler= (meetupId)=>{
+ 
+        return userFavorites.some(meetup => meetup.id === meetupId)
+        // some 함수를 인수로 받아 배열내의 각 항목마다 함수를 실행할것
+        // userFavorte내에 meetupId를 가진 meetup이 있으면 참을 반환
+    }
     const context= {
         favorites: userFavorites,
         totalFavorites: userFavorites.length,
